@@ -14,18 +14,23 @@
 ##################################### VARS ######################################
 #################################################################################
 
-NAME =			shaf
+NAME =			21sh
 AUTEUR =		"mbonati/nconoel"
 
 ###### SOURCES #######
 
 SRC_NAME =		main.c\
 				$(LINE_EDITION)\
+				$(LEXER_PARSER)
 
 #sub-directories
-LINE_EDITION_SRC =
-LINE_EDITION_DIR =		line_edition/
-LINE_EDITION = 			${addprefix $(LINE_EDITION_DIR), $(LINE_EDITION_SRC)}
+	LINE_EDITION_SRC =
+	LINE_EDITION_DIR =		line_edition/
+	LINE_EDITION = 			${addprefix $(LINE_EDITION_DIR), $(LINE_EDITION_SRC)}
+
+	PARSER_LEXER_SRC =
+	PARSER_LEXER_DIR =		parser_lexer/
+	PARSER_LEXER	 =		${addprefix $(PARSER_LEXER_DIR), $(PARSER_LEXER_SRC)}
 
 #main sources
 SRC_DIR =			./sources/
@@ -37,12 +42,13 @@ OBJ_DIR =		./objects/
 OBJ =			${addprefix $(OBJ_DIR), $(OBJ_NAME)}
 
 #object sub-directories
-	ALL_OBJ_DIR =	$(OBJ_DIR)$(LINE_EDITION_DIR)
+ALL_OBJ_DIR =	$(OBJ_DIR)$(LINE_EDITION_DIR)\
+				$(OBJ_DIR)$(LEXER_PARSER_DIR)
 
 ###### HEADERS ########
 
 HEADER_DIR =	./includes/
-HEADER_NAME =	shaf.h
+HEADER_NAME =	21sh.h
 HEADER =		${addprefix $(HEADER_DIR), $(HEADER_NAME)}
 
 #######  LIBS  ########
@@ -106,6 +112,7 @@ $(OBJ_DIR)%.o: $(SRC_DIR)%.c $(HEADER)
 
 $(OBJ_DIR): $(ALL_OBJ_DIR)
 	mkdir -p $(OBJ_DIR)
+	echo "\033[32m\033[1m\033[4mCreated\033[0m\033[32m : general obj dir\033[0m"
 
 $(ALL_OBJ_DIR):
 	mkdir -p $@
@@ -116,6 +123,8 @@ $(ALL_OBJ_DIR):
 	echo "\033[32m<Created Author file>\033[0m"
 
 header_print:
+	clear
+	echo "Wow that's done"
 
 ############# LIB #############
 
