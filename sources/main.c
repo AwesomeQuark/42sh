@@ -1,39 +1,20 @@
 #include "21sh.h"
 
-void    quit(char *comm)
+int     main(void)
 {
-    free(comm);
-    printf("quit\n");
-}
+    char    *raw_commands;
+    char    **all_commands;
+    char    **command;
+    t_ast   *ast;
+    int     i;
 
-int execute(char *comm)
-{
-    size_t i;
-
-    i = 0;
-    while (i < ft_strlen(comm))
-       ft_printf("%c\n", comm[i++]);
-    ft_printf("Done !");
-    return (1);
-}
-
-int parse(char  **comm)
-{
-    *comm = get_the_file(0);
-    return (1);
-}
-
-int main(void)
-{
-    char    *comm;
-
-    comm = NULL;
-    while (1)
+    raw_commands = get_the_file(0);
+    all_commands = ft_strsplit(raw_commands, ';');
+    while (all_commands[i])
     {
-        if (!(parse(&comm)))
-            quit(comm);
-        if (!(execute(comm)))
-            quit(comm);
-        free(comm);
+        command = split_modified(all_commands[i], " "); //TODO
+        ast = ast_constructor(command); // TODO
+        execute(ast);  // TODO
+        i++;
     }
 }
