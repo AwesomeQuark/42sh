@@ -8,6 +8,7 @@ int     main(void)
     t_ast   *ast;
     int     i;
 
+    i = 0;
     raw_commands = get_the_file(0);
     all_commands = ft_strsplit(raw_commands, ';');
     while (all_commands[i])
