@@ -13,35 +13,34 @@ typedef struct	s_term
 	struct termios	term;
 }				t_term;
 
+typedef struct s_info
+{
+	int		cursor_index;
+	char	command[131072];
+}				t_info;
+
 typedef struct	s_handlers
 {
 	int		(*test)(char *buff);
-	void	(*handler)(void);
+	void	(*handler)(t_info *info);
 }				t_handlers;
+
 
 struct termios	g_term_mem;
 
 int				ft_putchar_stdout(int c);
 void			end(int no);
-int				read_key(void);
+char			*read_key(void);
+int ft_putchar(int c);
 
-void			handle_left(void);
+void			handle_left(t_info *info);
 int				test_left(char *buff);
-void			handle_right(void);
+void			handle_right(t_info *info);
 int				test_right(char *buff);
-void			handle_down(void);
+void			handle_down(t_info *info);
 int				test_down(char *buff);
-void			handle_up(void);
+void			handle_up(t_info *info);
 int				test_up(char *buff);
-void			handle_del(void);
-int				test_del(char *buff);
-void			handle_escape(void);
-int				test_escape(char *buff);
-int				test_space(char *buff);
-void			handle_space(void);
-int				test_enter(char *buff);
-void			handle_enter(void);
-int				test_completion(char *buff);
-void			handle_completion(void);
+void			handle_del(t_info *info);
 
 #endif

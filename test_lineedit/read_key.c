@@ -9,30 +9,48 @@ static t_handlers g_handlers[] =
 	{NULL, NULL}
 };
 
-int			read_key(void)
+void	insert_char(char *str, char *c, int index)
 {
-	char		buff[4];
-	int			i;
+	str[index] = *c;
+	write(1, c, 1);
+	//tputs(tgetstr("le", NULL), 1, ft_putchar);
+}
 
+int	exec_key(char *buff, t_info *info)
+{
+	int	i;
+
+	i = 0;
 	while (1)
 	{
-		i = 0;
+		if (g_handlers[i].test == NULL)
+		{
+			insert_char(info->command, buff, info->cursor_index);
+			info->cursor_index++;
+			break ;
+		}
+		if (g_handlers[i].test(buff))
+		{
+			g_handlers[i].handler(info);
+			break ;
+		}
+		i++;
+	}
+	return (1);
+}
+
+char	*read_key(void)
+{
+	t_info		info;
+	char		buff[4];
+
+	ft_bzero(&info, sizeof(info));
+	write(1, "$>", 2);
+	while (1)
+	{
 		ft_bzero(buff, 4);
 		read(0, buff, 3);
-		while (1)
-		{
-			if (g_handlers[i].test == NULL)
-			{
-				write(1, buff, 1);
-				break ;
-			}
-			if (g_handlers[i].test(buff))
-			{
-				g_handlers[i].handler();
-				break ;
-			}
-			i++;
-		}
+		exec_key(buff, &info);
 	}
-	return (0);
+	return (ft_strdup(info.command));
 }

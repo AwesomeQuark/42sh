@@ -1,11 +1,5 @@
 #include "line_edit.h"
 
-int ft_putchar_stdout(int c)
-{
-	write(1, &c, 1);
-	return (1);
-}
-
 void stop(__unused int no)
 {
 	tcsetattr(0, TCSANOW, &g_term_mem);
