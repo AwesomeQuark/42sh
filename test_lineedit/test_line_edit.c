@@ -26,6 +26,9 @@ int main(void)
 	t_term	term;
 
 	init_term(&term);
-	read_key();
+	while (1)
+	{
+		printf("\n\n  %s\n\n", read_key());
+	}
 	stop(0);
 }

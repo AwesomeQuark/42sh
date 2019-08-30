@@ -31,7 +31,8 @@ struct termios	g_term_mem;
 int				ft_putchar_stdout(int c);
 void			end(int no);
 char			*read_key(void);
-int ft_putchar(int c);
+int 			ft_putchar(int c);
+void			insert_char(char *str, char *c, int index);
 
 void			handle_left(t_info *info);
 int				test_left(char *buff);
@@ -42,5 +43,12 @@ int				test_down(char *buff);
 void			handle_up(t_info *info);
 int				test_up(char *buff);
 void			handle_del(t_info *info);
+int				test_del(char *buff);
+void			handle_home(t_info *info);
+int				test_end(char *buff);
+void			handle_end(t_info *info);
+int				test_home(char *buff);
+void			handle_tab(t_info *info);
+int				test_tab(char *buff);
 
 #endif
