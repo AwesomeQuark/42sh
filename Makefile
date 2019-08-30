@@ -24,7 +24,9 @@ SRC_NAME =		main.c\
 				$(LEXER_PARSER)
 
 #sub-directories
-	LINE_EDITION_SRC =
+	LINE_EDITION_SRC =		handlers.c\
+							tests.c\
+							read_key.c
 	LINE_EDITION_DIR =		line_edition/
 	LINE_EDITION = 			${addprefix $(LINE_EDITION_DIR), $(LINE_EDITION_SRC)}
 
@@ -48,7 +50,8 @@ ALL_OBJ_DIR =	$(OBJ_DIR)$(LINE_EDITION_DIR)\
 ###### HEADERS ########
 
 HEADER_DIR =	./includes/
-HEADER_NAME =	21sh.h
+HEADER_NAME =	21sh.h\
+				line_edit.h
 HEADER =		${addprefix $(HEADER_DIR), $(HEADER_NAME)}
 
 #######  LIBS  ########
@@ -60,7 +63,7 @@ LIB =			${addprefix $(LIB_DIR), $(LIB_NAME)}
 
 #######  MISC  ########
 
-FLAGS =			-Wall -Werror -Wextra -g3
+FLAGS =			-Wall -Werror -Wextra -g3 -ltermcap
 DEBUG_FLAGS =	$(FLAGS) -O0 -fsanitize=address
 CC =			clang
 
