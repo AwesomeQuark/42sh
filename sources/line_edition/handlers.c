@@ -28,13 +28,15 @@ void	handle_right(t_info *info)
 	info->cursor_index++;
 }
 
-void	handle_up(__unused t_info *info)
+void	handle_up(t_info *info)
 {
+	info= NULL;
 	tputs(tgetstr("up", NULL), 1, ft_putchar);
 }
 
-void	handle_down(__unused t_info *info)
+void	handle_down(t_info *info)
 {
+	info = NULL,
 	tputs(tgetstr("do", NULL), 1, ft_putchar);
 }
 

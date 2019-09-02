@@ -63,7 +63,7 @@ LIB =			${addprefix $(LIB_DIR), $(LIB_NAME)}
 
 #######  MISC  ########
 
-FLAGS =			-Wall -Werror -Wextra -g3 -ltermcap
+FLAGS =			-Wall -Werror -Wextra -g3
 DEBUG_FLAGS =	$(FLAGS) -O0 -fsanitize=address
 CC =			clang
 
@@ -100,7 +100,7 @@ debug:
 ######### COMPILATION #########
 
 $(NAME): $(OBJ)
-	$(CC) $(FLAGS) $(OBJ) $(LIB) -o $(NAME) -I$(HEADER_DIR) -I$(LIB_DIR)
+	$(CC) $(FLAGS) $(OBJ) $(LIB) -o $(NAME) -I$(HEADER_DIR) -I$(LIB_DIR) -ltermcap
 	echo "\n \033[1m\033[4m\033[35m\\^/ Done compiling \\^/\033[0m [$(NAME)] --> $(LIB_NAME)"
 	make header_print
 

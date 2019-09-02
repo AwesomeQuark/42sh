@@ -1,8 +1,9 @@
 #include "line_edit.h"
 #include "21sh.h"
 
-void stop(__unused int no)
+void stop(int no)
 {
+	(void)no;
 	tcsetattr(0, TCSANOW, &g_term_mem);
 }
 
@@ -29,7 +30,7 @@ int main(void)
 	init_term(&term);
 	while (1)
 	{
-		printf("\n\n  %s\n\n", read_key());
+		printf("\n\033[31mINPUT:\033[0m\n  [%s]\n\n", read_key());
 	}
 	stop(0);
 }

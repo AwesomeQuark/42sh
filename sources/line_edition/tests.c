@@ -31,7 +31,7 @@ int	test_right(char *buff)
 int	test_up(char *buff)
 {
 	if (buff[0] == 27 && buff[1] == 91 && buff[2] == 65)
-		return (1);
+		return (0);
 	else
 		return (0);
 }
@@ -39,7 +39,7 @@ int	test_up(char *buff)
 int	test_down(char *buff)
 {
 	if (buff[0] == 27 && buff[1] == 91 && buff[2] == 66)
-		return (1);
+		return (0);
 	else
 		return (0);
 }

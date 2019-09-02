@@ -31,8 +31,10 @@ int	exec_key(char *buff, t_info *info)
 	{
 		if (g_handlers[i].test == NULL)
 		{
-			insert_char(info->command, buff, info->cursor_index);
-			info->cursor_index++;
+			if (buff[1] == 0)
+			{			
+				insert_char(info->command, buff, info->cursor_index);
+				info->cursor_index++;}
 			break ;
 		}
 		if (g_handlers[i].test(buff))
