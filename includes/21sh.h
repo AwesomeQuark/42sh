@@ -7,15 +7,23 @@
 
 typedef enum        e_ast_type
 {
-    TYPE,
-    TYPE2
+    OPERATOR,
+    WORD,
+	SEPARATOR
 }                   t_type;
 
-typedef struct      s_sh21_ast_struct
+typedef struct		s_token
 {
-    struct sh21_ast_struct  *left;
-    struct sh21_ast_struct  *right;
-    t_type                  type;
+	char			*value;
+	int				type;
+	struct s_token 	*next;
+}					t_token;
+
+typedef struct      s_ast
+{
+    struct s_ast	*left;
+    struct s_ast	*right;
+    t_type			type;
     char                    *content;
 }                   t_ast;
 
