@@ -5,7 +5,7 @@
 # include "haflib.h"
 # define USAGE "Usage: ./21sh"
 
-typedef enum        e_ast_type
+typedef enum        e_token_type
 {
     OPERATOR,
     WORD,

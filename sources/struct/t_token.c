@@ -12,7 +12,18 @@
 
 #include "42sh.h"
 
+int		token_type(char *item)
+{
+	t_type	token_type;
 
+	if (strcmp(item, ">") == 0 || strcmp(item, ">>") == 0 ||\
+		strcmp(item, "<") == 0 || strcmp(item, "<<") == 0 ||\
+		strcmp(item, ">&") == 0 || strcmp(item, "<&") == 0 ||\
+		strcmp(item, "|") == 0 || strcmp(item, "||") == 0 ||\
+		strcmp(item, "&&") == 0)
+		return (OPERATOR);
+	return (WORD);
+}
 
 t_token	*token_init(char *item)
 {
@@ -20,7 +31,7 @@ t_token	*token_init(char *item)
 
 	new.next = NULL;
 	new.value = item;
-	new.type = type_token(item);
+	new.type = token_type(item);
 }
 
 void	add_token(t_token **all, t_token *new)

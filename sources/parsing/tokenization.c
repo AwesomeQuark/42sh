@@ -26,34 +26,46 @@ size_t	quote_len(char *cmd_line)
 	return (i - 1);
 }
 
-char	*extract_quote_word(char *cmd_line)
+char	*extract_quote_word(char *cmd_line, int *i)
 {
-	size_t	i_cmd;
 	size_t	i_res;
 	size_t	size;
 	char	quote_size;
 	char	*res;
 
-	quote = cmd_line[0];
-	quote_size = quote_len(cmd_line);
+	quote = cmd_line[*i];
+	quote_size = quote_len(cmd_line[*i]);
 	if (!(res = malloc(sizeof(char) * (quote_size + 1))))
 		return (NULL);
 	res[quote_size] = '\0';
-	i_cmd = 1;
 	i_res = 0;
 	while (i_res < quote_size)
 	{
-		res[i_res] = cmd_line[i_cmd];
+		res[i_res] = cmd_line[*i];
 		i_res++;
+		*i++;
 	}
 	return (res);
 }
 
-char	*extract_word(char *cmd_line)
+size_t	word_size(char *cmd_line)
 {
+	size_t	i;
 
+	i = 0;
+	while ()
 }
 
+char	*extract_word(char *cmd_line)
+{
+	size_t	i;
+	char	*tmp_quote;
+
+	tmp_quote = NULL;
+	if (cmd_line[i] == '\'' || cmd_line[i] == '"')
+		if (!(tmp_quote = extract_quote_word(cmd_line, &i)))
+			return (NULL);
+}
 
 t_token *cmd_handler(char *cmd_line)
 {
