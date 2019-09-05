@@ -18,8 +18,8 @@ size_t	quote_len(char *cmd_line)
 	size_t	i;
 
 	quote = cmd_line[0];
-	if (cmd_line[1] == quote)
-		return (0);
+//	if (cmd_line[1] == quote) // useless, deja gere par le while en dessous ;P
+//		return (0);       //
 	i = 1;
 	while (cmd_line[i] && cmd_line[i] != quote)
 		i++;
