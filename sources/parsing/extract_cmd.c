@@ -10,34 +10,37 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "42sh.h"
+#include "../../includes/21sh.h"
 
 static char	*extract_quote_word(char *cmd_line, int *i)
 {
+	printf("extract_quote_word\n");
+
 	size_t	i_word;
-	char	quote_size;
+	size_t	quote_size;
 	char	*word;
 
-	quote = cmd_line[*i];
 	quote_size = quote_len(&cmd_line[*i]);
 	if (!(word = malloc(sizeof(char) * (quote_size + 1))))
 		return (NULL);
 	word[quote_size] = '\0';
 	i_word = 0;
+	(*i)++;
 	while (i_word < quote_size)
 	{
-		if (cmd_line[i] == '\\')
+		if (cmd_line[*i] == '\\')
 			(*i)++;
 		word[i_word] = cmd_line[*i];
 		i_word++;
 		(*i)++;
 	}
-	(*i++);
 	return (word);
 }
 
 static char	*extract_word(char *cmd_line, int *i)
 {
+	//printf("extract_word\n");
+
 	char		*word;
 	size_t		i_word;
 
@@ -46,7 +49,7 @@ static char	*extract_word(char *cmd_line, int *i)
 		return (0);
 	while (cmd_line[*i] && !(ft_isspace(cmd_line[*i])) && !(cmd_line[*i] == '\'') && !(cmd_line[*i] == '"'))
 	{
-		if (cmd_line[i] == '\\')
+		if (cmd_line[*i] == '\\')
 			(*i)++;
 		word[i_word] = cmd_line[*i];
 		(*i)++;
@@ -56,25 +59,28 @@ static char	*extract_word(char *cmd_line, int *i)
 	return (word);
 }
 
-char		*extract_cmd(char *cmd_line)
+char		*extract_cmd(char *cmd_line, int *i)
 {
-	size_t	i;
+	//printf("extract_cmd\n");
+
 	char	*tmp_quote;
-	char	quote;
-	char	*res;
+	char	*tmp_word;
 
 	tmp_quote = NULL;
-	while (ft_isspace(cmd_line[i]))
-		i++;
-	if (cmd_line[i] == '\'' || cmd_line[i] == '"') //si on tombe sur une quote
+	while (ft_isspace(cmd_line[*i]))
+		(*i)++;
+	if (cmd_line[*i] == '\'' || cmd_line[*i] == '"') //si on tombe sur une quote
 	{
-		quote = cmd_line[i];
-		if (!(tmp_quote = extract_quote_word(cmd_line, &i)))
+		if (!(tmp_quote = extract_quote_word(cmd_line, i)))
 			return (NULL);
-		i++;
-		if (ft_isspace(cmd_line[i]) || !(cmd_line[i]))
+		(*i)++;
+		if (!(cmd_line[*i]) || ft_isspace(cmd_line[*i]))
 			return (tmp_quote);
-		return (ft_strjoinfree(tmp_quote, extract_cmd(&cmd_line[i]), 1));
+		return (ft_strjoinfree(tmp_quote, extract_cmd(&cmd_line[*i], i), 1));
 	}
-
+	if (!(tmp_word = extract_word(cmd_line, i)))
+		return (NULL);
+	if (cmd_line[*i] == '\'' || cmd_line[*i] == '"')
+		return (ft_strjoinfree(tmp_word, extract_cmd(&cmd_line[*i], i), 1));
+	return (tmp_word);
 }

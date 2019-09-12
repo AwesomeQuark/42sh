@@ -10,11 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "42sh.h"
+#include "../../includes/21sh.h"
 
-int		token_type(char *item)
+static int		token_type(char *item)
 {
-	t_type	token_type;
+	//printf("token_type\n");
 
 	if (strcmp(item, ">") == 0 || strcmp(item, ">>") == 0 ||\
 		strcmp(item, "<") == 0 || strcmp(item, "<<") == 0 ||\
@@ -25,16 +25,26 @@ int		token_type(char *item)
 	return (WORD);
 }
 
-t_token	*token_init(char *item)
+t_token			*token_init(char *item)
 {
-	t_token	new;
+	//printf("token_init\n");
 
-	new.next = NULL;
-	new.value = item;
-	new.type = token_type(item);
+	t_token	*new;
+
+	if (!(new = malloc(sizeof(t_token))))
+		return (NULL);
+	new->next = NULL;
+	new->value = item;
+	new->type = token_type(item);
+	return (new);
 }
 
-void	add_token(t_token **all, t_token *new)
+void			add_token(t_token **all, t_token *new)
 {
+	//printf("add_token\n");
 
+	while (all && *all != NULL)
+		all = &(*all)->next;
+	new->next = (*all);
+	*all = new;
 }

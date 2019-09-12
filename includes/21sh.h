@@ -14,7 +14,10 @@
 # define SH_H
 
 # include <unistd.h>
-# include "haflib.h"
+# include <stdlib.h>
+# include <stdio.h>
+# include "../new_lib/libft.h"
+//# include "haflib.h"
 # define USAGE "Usage: ./21sh"
 
 typedef enum        e_token_type
@@ -38,5 +41,12 @@ typedef struct      s_ast
     t_type			type;
     char                    *content;
 }                   t_ast;
+
+int			cmd_handler(char *cmd_line, t_token **all_words);
+void		add_token(t_token **all, t_token *new);
+char		*extract_cmd(char *cmd_line, int *i);
+size_t		word_len(char *cmd_line);
+size_t		quote_len(char *cmd_line);
+t_token		*token_init(char *item);
 
 #endif

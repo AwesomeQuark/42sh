@@ -10,10 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "42sh.h"
+#include "../../includes/21sh.h"
 
 size_t	quote_len(char *cmd_line)
 {
+	//printf("quote_len\n");
+
 	char	quote;
 	size_t	i;
 	size_t	res;
@@ -28,11 +30,14 @@ size_t	quote_len(char *cmd_line)
 		i++;
 		res++;
 	}
+	printf("quote_len : %lu\n", res - 1);
 	return (res - 1);
 }
 
 size_t	word_len(char *cmd_line)
 {
+	//printf("word_len\n");
+
 	size_t	i;
 	size_t	res;
 
