@@ -12,6 +12,13 @@
 
 #include "../../includes/21sh.h"
 
+int	is_quote(char c)
+{
+	if (c == '\'' || c == '"')
+		return (1);
+	return (0);
+}
+
 size_t	quote_len(char *cmd_line)
 {
 	//printf("quote_len\n");
@@ -43,7 +50,7 @@ size_t	word_len(char *cmd_line)
 
 	i = 0;
 	res = 0;
-	while (cmd_line[i] && !(ft_isspace(cmd_line[i])) && (cmd_line[i] != '\'' || cmd_line[i] != '"'))
+	while (cmd_line[i] && !(ft_isspace(cmd_line[i])) && !(is_quote(cmd_line[i])))
 	{
 		if (cmd_line[i] == '\\')
 			i++;

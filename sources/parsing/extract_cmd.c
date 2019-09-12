@@ -12,13 +12,6 @@
 
 #include "../../includes/21sh.h"
 
-static int	is_quote(char c)
-{
-	if (c == '\'' || c == '"')
-		return (1);
-	return (0);
-}
-
 static char	*extract_quote_word(char *cmd_line, int *i)
 {
 	//printf("extract_quote_word : %s\n", &cmd_line[*i]);

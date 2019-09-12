@@ -48,5 +48,6 @@ char		*extract_cmd(char *cmd_line, int *i);
 size_t		word_len(char *cmd_line);
 size_t		quote_len(char *cmd_line);
 t_token		*token_init(char *item);
+int			is_quote(char c);
 
 #endif
