@@ -30,7 +30,7 @@ size_t	quote_len(char *cmd_line)
 		i++;
 		res++;
 	}
-	printf("quote_len : %lu\n", res - 1);
+	//printf("quote_len : %lu\n", res - 1);
 	return (res - 1);
 }
 
