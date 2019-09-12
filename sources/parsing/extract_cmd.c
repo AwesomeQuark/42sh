@@ -12,6 +12,13 @@
 
 #include "../../includes/21sh.h"
 
+static int	is_quote(char c)
+{
+	if (c == '\'' || c == '"')
+		return (1);
+	return (0);
+}
+
 static char	*extract_quote_word(char *cmd_line, int *i)
 {
 	//printf("extract_quote_word : %s\n", &cmd_line[*i]);
@@ -50,7 +57,7 @@ static char	*extract_word(char *cmd_line, int *i)
 		(*i)++;
 	if (!(word = (char *)malloc(sizeof(char) * (word_len(&cmd_line[*i]) + 1))))
 		return (0);
-	while (cmd_line[*i] && !(ft_isspace(cmd_line[*i])) && !(cmd_line[*i] == '\'') && !(cmd_line[*i] == '"'))
+	while (cmd_line[*i] && !ft_isspace(cmd_line[*i]) && !is_quote(cmd_line[*i]))
 	{
 		if (cmd_line[*i] == '\\')
 			(*i)++;
