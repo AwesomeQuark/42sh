@@ -12,9 +12,9 @@
 
 #include "21sh.h"
 
-static int		token_type(char *item)
+/*static int		token_type(char *item)
 {
-	//printf("token_type\n");
+	printf("token_type\n");
 
 	if (strcmp(item, ">") == 0 || strcmp(item, ">>") == 0 ||\
 		strcmp(item, "<") == 0 || strcmp(item, "<<") == 0 ||\
@@ -25,25 +25,24 @@ static int		token_type(char *item)
 	if (strcmp(item, ";") == 0)
 		return (SEPARATOR);
 	return (WORD);
-}
+}*/
 
-t_token			*token_init(char *item)
+t_token		*token_init(void)
 {
-	//printf("token_init\n");
-
-	t_token	*new;
+	t_token *new;
 
 	if (!(new = malloc(sizeof(t_token))))
-		return (NULL);
+	//	return ((int)error_malloc("token_init"));
+		return (0);
 	new->next = NULL;
-	new->value = item;
-	new->type = token_type(item);
+	new->value = NULL;
+	new->type = -1;
 	return (new);
 }
 
 void			add_token(t_token **all, t_token *new)
 {
-	//printf("add_token\n");
+	printf("add_token\n");
 
 	while (all && *all != NULL)
 		all = &(*all)->next;

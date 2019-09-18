@@ -1,36 +1,25 @@
-#include "line_edit.h"
 #include "21sh.h"
+#include <stdio.h>
 
-void stop(int no)
+int main(int ac, char **av)
 {
-	(void)no;
-	tcsetattr(0, TCSANOW, &g_term_mem);
-}
+	t_token *test;
 
-int init_term(t_term *term)
-{
-	if (tgetent(NULL, getenv("TERM")) < 1)
-		return (0);
-	if (tcgetattr(0, &g_term_mem) == -1)
-		return (0);
-	if (tcgetattr(0, &(term->term)) == -1)
-		return (0);
-	term->term.c_lflag &= ~(ICANON);
-	term->term.c_lflag &= ~(ECHO);
-	term->term.c_cc[VMIN] = 1;
-	term->term.c_cc[VTIME] = 0;
-	tcsetattr(0, TCSANOW, &(term->term));
-	return (1);
-}
-
-int main(void)
-{
-	t_term	term;
-
-	init_term(&term);
-	while (1)
+	test = NULL;
+	if (ac)
 	{
-		printf("\n\033[31mINPUT:\033[0m\n  [%s]\n\n", read_key());
+		tokenization(av[1], &test);
+		while (test)
+		{
+			printf("VALUE : [%s]\n", test->value);
+			if (test->type == 0)
+				printf("TYPE : operator\n\n");
+			if (test->type == 1)
+				printf("TYPE : word\n\n");
+			if (test->type == 2)
+				printf("TYPE : separator\n\n");
+			test = test->next;
+		}
 	}
-	stop(0);
+	return 0;
 }
