@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/21sh.h"
+#include "21sh.h"
 
 static int		token_type(char *item)
 {
@@ -20,8 +20,10 @@ static int		token_type(char *item)
 		strcmp(item, "<") == 0 || strcmp(item, "<<") == 0 ||\
 		strcmp(item, ">&") == 0 || strcmp(item, "<&") == 0 ||\
 		strcmp(item, "|") == 0 || strcmp(item, "||") == 0 ||\
-		strcmp(item, "&&") == 0)
+		strcmp(item, "&&") == 0 || strcmp(item, "&") == 0)
 		return (OPERATOR);
+	if (strcmp(item, ";") == 0)
+		return (SEPARATOR);
 	return (WORD);
 }
 

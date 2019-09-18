@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/21sh.h"
+#include "21sh.h"
 
 static char	*extract_quote_word(char *cmd_line, int *i)
 {
@@ -45,14 +45,16 @@ static char	*extract_quote_word(char *cmd_line, int *i)
 
 static char	*extract_word(char *cmd_line, int *i)
 {
-
 	char		*word;
 	size_t		i_word;
+	size_t		size_word;
 
 	i_word = 0;
-	if (!(word = (char *)malloc(sizeof(char) * (word_len(&cmd_line[*i]) + 1))))
-		return (0);
-	while (cmd_line[*i] && !ft_isspace(cmd_line[*i]) && !is_quote(cmd_line[*i]))
+	size_word = word_len(&cmd_line[*i]) + 1;
+	if (!(word = (char *)malloc(sizeof(char) * (size_word + 2))))
+		return (NULL);
+	word[i_word++] = '"';
+	while (i_word < size_word)
 	{
 		if (cmd_line[*i] == '\\')
 			(*i)++;
@@ -60,31 +62,67 @@ static char	*extract_word(char *cmd_line, int *i)
 		(*i)++;
 		i_word++;
 	}
+	word[i_word++] = '"';
 	word[i_word] = '\0';
 	return (word);
 }
 
-char		*extract_cmd(char *cmd_line, int *i)
+static char	*extract_operator(char *cmd_line, int *i)
 {
+	char	c_op;
+	size_t	operator_size;
+	char	*operator;
+	size_t	y;
 
-	char	*tmp_quote;
-	char	*tmp_word;
-
-	tmp_quote = NULL;
-	while (ft_isspace(cmd_line[*i]))
-		(*i)++;
-	if (cmd_line[*i] == '\'' || cmd_line[*i] == '"') //si on tombe sur une quote
+	c_op = cmd_line[*i];
+	operator_size = 1;
+	operator = NULL;
+	if (cmd_line[*i + 1] == c_op || cmd_line[*i + 1] == '&')
+		operator_size = 2;
+	if (!(operator = malloc(sizeof(char) * (operator_size + 1))))
+		return (error_malloc("extract_operator"));
+	operator[operator_size] = '\0';
+	y = 0;
+	while (y < operator_size)
 	{
-		if (!(tmp_quote = extract_quote_word(cmd_line, i)))
-			return (NULL);
-		//(*i)++;
-		if (!(cmd_line[*i]) || ft_isspace(cmd_line[*i]))
-			return (tmp_quote);
-		return (ft_strjoinfree(tmp_quote, extract_cmd(cmd_line, i), 1));
+		operator[y] = cmd_line[*i];
+		(*i)++;
+		y++;
 	}
+	return (operator);
+}
+
+static char	*handle_word(char *cmd_line, int *i)
+{
+	char *tmp_word;
+
+	tmp_word = NULL;
 	if (!(tmp_word = extract_word(cmd_line, i)))
 		return (NULL);
 	if (cmd_line[*i] == '\'' || cmd_line[*i] == '"')
 		return (ft_strjoinfree(tmp_word, extract_cmd(cmd_line, i), 1));
 	return (tmp_word);
+}
+
+static char	*handle_quote(char *cmd_line, int *i)
+{
+	char *tmp_quote;
+
+	tmp_quote = NULL;
+	if (!(tmp_quote = extract_quote_word(cmd_line, i)))
+		return (NULL);
+	if (!(cmd_line[*i]) || ft_isspace(cmd_line[*i]))
+		return (tmp_quote);
+	return (ft_strjoinfree(tmp_quote, extract_cmd(cmd_line, i), 1));
+}
+
+char		*extract_cmd(char *cmd_line, int *i)
+{
+	while (ft_isspace(cmd_line[*i]))
+		(*i)++;
+	if (is_operator(cmd_line[*i]))
+		return (extract_operator(cmd_line, i));
+	if (cmd_line[*i] == '\'' || cmd_line[*i] == '"') //si on tombe sur une quote
+		return (handle_quote(cmd_line, i));
+	return (handle_word(cmd_line, i));
 }

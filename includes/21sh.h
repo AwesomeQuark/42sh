@@ -16,8 +16,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdio.h>
-# include "../new_lib/libft.h"
-//# include "haflib.h"
+# include "libft.h"
 # define USAGE "Usage: ./21sh"
 
 typedef enum        e_token_type
@@ -49,5 +48,7 @@ size_t		word_len(char *cmd_line);
 size_t		quote_len(char *cmd_line);
 t_token		*token_init(char *item);
 int			is_quote(char c);
+int			is_operator(char c);
+char	*error_malloc(char *function_name);
 
 #endif
