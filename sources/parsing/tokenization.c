@@ -25,7 +25,7 @@ int		cmd_handler(char *cmd_line, t_token **all_words)
 	{
 		if (!(res_cmd = extract_cmd(cmd_line, &i)))
 			return (0);
-		if (res_cmd)
+		if (!(ft_strcmp(res_cmd, "\"\"")) == 0)
 		{
 			new_word = token_init(res_cmd);
 			add_token(all_words, new_word);

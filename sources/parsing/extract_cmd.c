@@ -24,13 +24,14 @@ static char	*extract_quote_word(char *cmd_line, int *i)
 		return (NULL);
 	word[quote_size] = '\0';
 	i_word = 0;
-	(*i)++;
 	while (i_word < quote_size)
 	{
 		if (cmd_line[*i] == '\\')
 		{
-			*i += 2;
+			(*i)++;
 			word[i_word] = cmd_line[*i];
+			(*i)++;
+			i_word++;
 		}
 		else
 		{
@@ -39,7 +40,6 @@ static char	*extract_quote_word(char *cmd_line, int *i)
 			(*i)++;
 		}
 	}
-	(*i)++;
 	return (word);
 }
 

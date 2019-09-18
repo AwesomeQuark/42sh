@@ -34,16 +34,17 @@ size_t	quote_len(char *cmd_line)
 	size_t	res;
 
 	quote = cmd_line[0];
+	if (cmd_line[1] == quote)
+		return (0);
 	i = 1;
 	res = 1;
-	while (cmd_line[i] && cmd_line[i] != quote)
+	while (cmd_line[i] != quote)
 	{
-		if (cmd_line[i] == '\\')
-			i++;
+		if (!(cmd_line[i] == '\\'))
+			res++;
 		i++;
-		res++;
 	}
-	return (res - 1);
+	return (res + 1);
 }
 
 size_t	word_len(char *cmd_line)
