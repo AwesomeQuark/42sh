@@ -16,8 +16,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdio.h>
-# include "../new_lib/libft.h"
-//# include "haflib.h"
+# include "libft.h"
 # define USAGE "Usage: ./21sh"
 
 typedef enum        e_token_type
@@ -42,12 +41,14 @@ typedef struct      s_ast
     char                    *content;
 }                   t_ast;
 
-int			cmd_handler(char *cmd_line, t_token **all_words);
+int			cmd_handler(char *line, t_token **all_words);
 void		add_token(t_token **all, t_token *new);
-char		*extract_cmd(char *cmd_line, int *i);
-size_t		word_len(char *cmd_line);
-size_t		quote_len(char *cmd_line);
+char		*extract_cmd(char *line, int *i);
+size_t		word_len(char *line);
+size_t		quote_len(char *line);
 t_token		*token_init(char *item);
 int			is_quote(char c);
+int			is_operator(char c);
+char	*error_malloc(char *function_name);
 
 #endif
