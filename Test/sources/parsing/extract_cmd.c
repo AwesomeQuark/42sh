@@ -79,7 +79,7 @@ char	*handle_quote(char *line, int *i)
 		return (NULL);
 	if (!(line[*i]) || ft_isspace(line[*i]) || is_operator(line[*i]))
 		return (tmp_quote);
-	return (ft_strjoinfree(tmp_quote, extract_cmd(line, i), 2));
+	return (ft_strjoinfree(tmp_quote, extract_cmd(line, i), 3));
 }
 
 char	*handle_word(char *line, int *i)
@@ -92,7 +92,7 @@ char	*handle_word(char *line, int *i)
 	if (!(tmp_word = extract_word(line, i)))
 		return (NULL);
 	if (line[*i] == '\'' || line[*i] == '"')
-		return (ft_strjoinfree(tmp_word, extract_cmd(line, i), 2));
+		return (ft_strjoinfree(tmp_word, extract_cmd(line, i), 3));
 	return (tmp_word);
 }
 

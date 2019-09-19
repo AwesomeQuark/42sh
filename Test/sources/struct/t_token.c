@@ -34,6 +34,7 @@ t_token		*token_init(void)
 	if (!(new = malloc(sizeof(t_token))))
 	//	return ((int)error_malloc("token_init"));
 		return (0);
+	new->previous = NULL;
 	new->next = NULL;
 	new->value = NULL;
 	new->type = -1;
@@ -48,7 +49,13 @@ void			add_token(t_token **all, t_token *new)
 	*all = new;
 }
 
-int		delete_t_token(t_token **all_token)
+void	delete_token(t_token *token)
+{
+	ft_strdel(&(token->value));
+	free(token);
+}
+
+int		delete_all_token(t_token **all_token)
 {
 	t_token *tmp;
 
@@ -56,7 +63,7 @@ int		delete_t_token(t_token **all_token)
 	while (*all_token != NULL)
 	{
 		tmp = (*all_token)->next;
-		ft_strdel(&(*all_token)->value);
+		delete_token(*all_token);
 		(*all_token) = tmp;
 	}
 	if (*all_token)

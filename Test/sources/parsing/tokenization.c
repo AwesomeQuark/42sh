@@ -14,8 +14,6 @@
 
 static int		operator_handler(char *line, int *i, t_token *new)
 {
-	//printf("operator_handler\n");
-
 	char	*tmp_value;
 
 	if (line[*i] == ';')
@@ -24,7 +22,6 @@ static int		operator_handler(char *line, int *i, t_token *new)
 			return (0);
 		new->value = tmp_value;
 		new->type = 2;
-		new->next = NULL;
 	}
 	else if (is_operator(line[*i]))
 	{
@@ -32,29 +29,23 @@ static int		operator_handler(char *line, int *i, t_token *new)
 			return (0);
 		new->value = tmp_value;
 		new->type = 0;
-		new->next = NULL;
 	}
 	return (1);
 }
 
 static int		cmd_handler(char *line, int *i, t_token *new)
 {
-	//printf("cmd_handler\n");
-
 	char	*tmp_value;
 
 	if (!(tmp_value = extract_cmd(line, i)))
 		return (0);
 	new->value = tmp_value;
 	new->type = 1;
-	new->next = NULL;
 	return (1);
 }
 
 static int	check_line(char *line, int *i, t_token *new)
 {
-	//printf("check_line\n");
-
 	while (ft_isspace(line[*i]))
 		(*i)++;
 	if (line[*i] != ';' && !is_operator(line[*i]))
@@ -69,7 +60,6 @@ static int	check_line(char *line, int *i, t_token *new)
 
 int		tokenization(char *line, t_token **all_words)
 {
-	//printf("cmd_handler\n");
 	t_token	*new_word;
 	int		res_extract;
 	int		i;
@@ -81,9 +71,11 @@ int		tokenization(char *line, t_token **all_words)
 		if (!(new_word = token_init()))
 			return (0);
 		if (!(res_extract = check_line(line, &i, new_word)))
+		{
+			delete_token(new_word);
 			return (0);
-		if (res_extract > 0)
-			add_token(all_words, new_word);
+		}
+		add_token(all_words, new_word);
 	}
 	return (1);
 }

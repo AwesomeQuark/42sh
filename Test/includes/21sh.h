@@ -30,6 +30,7 @@ typedef struct		s_token
 {
 	char			*value;
 	int				type;
+	struct s_token 	*previous;
 	struct s_token 	*next;
 }					t_token;
 
@@ -54,6 +55,7 @@ char		*extract_separator(int *i);
 char		*extract_operator(char *line, int *i);
 char		*handle_word(char *line, int *i);
 char		*handle_quote(char *line, int *i);
-int			delete_t_token(t_token **all_token);
+int			delete_all_token(t_token **all_token);
+void		delete_token(t_token *token);
 
 #endif
