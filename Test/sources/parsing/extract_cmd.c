@@ -47,7 +47,6 @@ static char	*extract_quote_word(char *line, int *i)
 static char	*extract_word(char *line, int *i)
 {
 	//printf("extract_word\n");
-
 	char		*word;
 	size_t		i_word;
 	size_t		word_size;
@@ -73,7 +72,6 @@ static char	*extract_word(char *line, int *i)
 char	*handle_quote(char *line, int *i)
 {
 	//printf("handle_quote\n");
-
 	char *tmp_quote;
 
 	tmp_quote = NULL;
