@@ -54,5 +54,6 @@ char		*extract_separator(int *i);
 char		*extract_operator(char *line, int *i);
 char		*handle_word(char *line, int *i);
 char		*handle_quote(char *line, int *i);
+int			delete_t_token(t_token **all_token);
 
 #endif

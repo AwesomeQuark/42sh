@@ -14,7 +14,7 @@
 
 char	*extract_operator(char *line, int *i)
 {
-	printf("extract_operator\n");
+	//printf("extract_operator\n");
 
 	char	c_op;
 	size_t	operator_size;
@@ -41,7 +41,7 @@ char	*extract_operator(char *line, int *i)
 
 char	*extract_separator(int *i)
 {
-	printf("extract_separator\n");
+	//printf("extract_separator\n");
 
 	char *res;
 

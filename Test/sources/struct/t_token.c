@@ -42,10 +42,26 @@ t_token		*token_init(void)
 
 void			add_token(t_token **all, t_token *new)
 {
-	printf("add_token\n");
-
 	while (all && *all != NULL)
 		all = &(*all)->next;
 	new->next = (*all);
 	*all = new;
+}
+
+int		delete_t_token(t_token **all_token)
+{
+	t_token *tmp;
+
+	tmp = NULL;
+	while (*all_token != NULL)
+	{
+		tmp = (*all_token)->next;
+		ft_strdel(&(*all_token)->value);
+		(*all_token) = tmp;
+	}
+	if (*all_token)
+		free(*all_token);
+	if (tmp)
+		free(tmp);
+	return (0);
 }

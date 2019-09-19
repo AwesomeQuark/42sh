@@ -4,11 +4,13 @@
 int main(int ac, char **av)
 {
 	t_token *test;
+	t_token	*tmp;
 
 	test = NULL;
 	if (ac)
 	{
 		tokenization(av[1], &test);
+		tmp = test;
 		while (test)
 		{
 			printf("VALUE : [%s]\n", test->value);
@@ -20,6 +22,7 @@ int main(int ac, char **av)
 				printf("TYPE : separator\n\n");
 			test = test->next;
 		}
+		delete_t_token(&tmp);
 	}
 	return 0;
 }

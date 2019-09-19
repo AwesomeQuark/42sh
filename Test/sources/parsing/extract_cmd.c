@@ -14,7 +14,7 @@
 
 static char	*extract_quote_word(char *line, int *i)
 {
-	printf("extract_quote_word\n");
+	//printf("extract_quote_word\n");
 
 	size_t	i_word;
 	size_t	quote_size;
@@ -46,46 +46,47 @@ static char	*extract_quote_word(char *line, int *i)
 
 static char	*extract_word(char *line, int *i)
 {
-	printf("extract_word\n");
+	//printf("extract_word\n");
 
 	char		*word;
 	size_t		i_word;
+	size_t		word_size;
 
 	i_word = 0;
-	if (!(word = (char *)malloc(sizeof(char) * (word_len(&line[*i]) + 1))))
+	word_size = word_len(&line[*i]);
+	if (!(word = (char *)malloc(sizeof(char) * (word_size + 1))))
 		return (0);
-	while (line[*i] && !ft_isspace(line[*i]) && !is_quote(line[*i]))
+	while (line[*i] && !ft_isspace(line[*i]) && !is_quote(line[*i]) &&\
+		!(is_operator(line[*i])))
 	{
 		if (line[*i] == '\\')
 			(*i)++;
-
 		word[i_word] = line[*i];
 		(*i)++;
 		i_word++;
 
 	}
 	word[i_word] = '\0';
-	printf("extract_word sortie\n");
 	return (word);
 }
 
 char	*handle_quote(char *line, int *i)
 {
-	printf("handle_quote\n");
+	//printf("handle_quote\n");
 
 	char *tmp_quote;
 
 	tmp_quote = NULL;
 	if (!(tmp_quote = extract_quote_word(line, i)))
 		return (NULL);
-	if (!(line[*i]) || ft_isspace(line[*i]))
+	if (!(line[*i]) || ft_isspace(line[*i]) || is_operator(line[*i]))
 		return (tmp_quote);
 	return (ft_strjoinfree(tmp_quote, extract_cmd(line, i), 2));
 }
 
 char	*handle_word(char *line, int *i)
 {
-	printf("handle_word\n");
+	//printf("handle_word\n");
 
 	char *tmp_word;
 
@@ -99,10 +100,12 @@ char	*handle_word(char *line, int *i)
 
 char		*extract_cmd(char *line, int *i)
 {
-	printf("extract_cmd\n");
+	//printf("extract_cmd %s\n", &line[*i]);
 
 	while (ft_isspace(line[*i]))
 		(*i)++;
+	if (!line[*i])
+		return (NULL);
 	if (line[*i] == '\'' || line[*i] == '"')
 		return (handle_quote(line, i));
 	return (handle_word(line, i));
