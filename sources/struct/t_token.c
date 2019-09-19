@@ -22,6 +22,8 @@ static int		token_type(char *item)
 		strcmp(item, "|") == 0 || strcmp(item, "||") == 0 ||\
 		strcmp(item, "&&") == 0)
 		return (OPERATOR);
+	if (strcmp(item, ";") == 0)
+		return (SEPARATOR);
 	return (WORD);
 }
 
