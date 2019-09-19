@@ -11,7 +11,7 @@ int main(int ac, char **av)
 	{
 		tokenization(av[1], &test);
 		tmp = test;
-		while (test)
+		while (test->next)
 		{
 			printf("VALUE : [%s]\n", test->value);
 			if (test->type == 0)
@@ -22,7 +22,19 @@ int main(int ac, char **av)
 				printf("TYPE : separator\n\n");
 			test = test->next;
 		}
-		delete_t_token(&tmp);
+		printf("- - - - - - \n\n");
+		while (test->previous)
+		{
+			printf("VALUE : [%s]\nadd : %p\n", test->value, test->previous);
+			if (test->type == 0)
+				printf("TYPE : operator\n\n");
+			if (test->type == 1)
+				printf("TYPE : word\n\n");
+			if (test->type == 2)
+				printf("TYPE : separator\n\n");
+			test = test->previous;
+		}
+		delete_all_token(&tmp);
 	}
 	return 0;
 }

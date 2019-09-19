@@ -43,9 +43,16 @@ t_token		*token_init(void)
 
 void			add_token(t_token **all, t_token *new)
 {
+	t_token *tmp;
+
+	tmp = NULL;
 	while (all && *all != NULL)
+	{
+		tmp = *all;
 		all = &(*all)->next;
+	}
 	new->next = (*all);
+	new->previous = tmp;
 	*all = new;
 }
 
